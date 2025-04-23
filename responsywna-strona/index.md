@@ -145,8 +145,8 @@ Wraz z projektem dostarczcie dokumentację zawierającą:
 
 - Projekt oddajecie jako archiwum ZIP zawierające wszystkie pliki projektu lub link do repozytorium git
 - Dokumentację dostarczacie w formie PDF
-- Przygotujcie się na krótką prezentację projektu przed klasą (5-7 minut)
 - Termin oddania: **30 maja 2025**
+- Będziemy wspólnie oceniać projekt na podstawie kodu, struktury, estetyki i funkcjonalności :)
 
 ## Wskazówki, które pomogą Wam w realizacji projektu
 
