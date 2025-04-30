@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Różnice w formularzach - Chrome vs Firefox</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        /* Sekcje formularzy */
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        
+        h2 {
+            margin-top: 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        /* Pola formularza BEZ stylów - pokazuje różnice */
+        .basic-form input,
+        .basic-form select,
+        .basic-form textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+            /* Brak dodatkowego stylowania - domyślne style przeglądarek */
+        }
+        
+        /* Te pola mają największe różnice */
+        .color-input {
+            height: 40px;
+            padding: 0;
+            border: none;
+        }
+        
+        /* Nie stosujemy żadnych normalizacji do tych elementów */
+        .file-input {
+            /* Firefox i Chrome mają zupełnie inne wyglądy dla input type="file" */
+        }
+        
+        /* Przyciski radio i checkbox wyglądają inaczej */
+        .radio-group,
+        .checkbox-group {
+            margin-bottom: 15px;
+        }
+        
+        .radio-group label,
+        .checkbox-group label {
+            display: inline-flex;
+            align-items: center;
+            font-weight: normal;
+            margin-right: 15px;
+        }
+        
+        /* Datepicker wygląda kompletnie inaczej */
+        .date-input {
+            /* Domyślne style przeglądarek */
+        }
+        
+        /* Progress bar ma różne style */
+        progress {
+            width: 100%;
+            height: 20px;
+            /* Domyślne style przeglądarek */
+        }
+        
+        /* Meter element - zupełnie inne wyglądy */
+        meter {
+            width: 100%;
+            height: 20px;
+            /* Domyślne style przeglądarek */
+        }
+        
+        .note {
+            background-color: #fffacd;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Różnice w elementach formularzy między przeglądarkami</h1>
+        <p>Poniższe elementy formularzy są pokazane bez żadnych dodatkowych stylów, aby zademonstrować różnice między Chrome a Firefox.</p>
+        
+        <div class="form-section basic-form">
+            <h2>Podstawowe pola formularzy</h2>
+            
+            <label for="text-input">Pole tekstowe:</label>
+            <input type="text" id="text-input" placeholder="Wpisz tekst...">
+            
+            <label for="password-input">Hasło:</label>
+            <input type="password" id="password-input" placeholder="Wpisz hasło...">
+            
+            <label for="select-input">Lista rozwijana:</label>
+            <select id="select-input">
+                <option value="" disabled selected>Wybierz opcję...</option>
+                <option value="1">Opcja 1</option>
+                <option value="2">Opcja 2</option>
+                <option value="3">Opcja 3 z bardzo długą nazwą która może się różnie wyświetlać</option>
+            </select>
+            
+            <label for="textarea-input">Pole wieloliniowe:</label>
+            <textarea id="textarea-input" rows="4" placeholder="Wpisz dłuższy tekst..."></textarea>
+        </div>
+        
+        <div class="form-section basic-form">
+            <h2>Specjalistyczne pola formularzy</h2>
+            
+            <label for="color-input">Wybór koloru (duże różnice):</label>
+            <input type="color" id="color-input" class="color-input" value="#3498db">
+            
+            <label for="file-input">Przesyłanie pliku (duże różnice):</label>
+            <input type="file" id="file-input" class="file-input">
+            
+            <label for="range-input">Suwak (duże różnice):</label>
+            <input type="range" id="range-input" min="0" max="100" value="50">
+            
+            <label for="date-input">Wybór daty (duże różnice):</label>
+            <input type="date" id="date-input" class="date-input">
+            
+            <label for="number-input">Pole liczbowe (różne spinboxy):</label>
+            <input type="number" id="number-input" min="0" max="100" value="50">
+        </div>
+        
+        <div class="form-section basic-form">
+            <h2>Checkboxy i radio buttony</h2>
+            
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox"> Opcja 1
+                </label>
+                <label>
+                    <input type="checkbox" checked> Opcja 2 (zaznaczona)
+                </label>
+                <label>
+                    <input type="checkbox" disabled> Opcja 3 (wyłączona)
+                </label>
+            </div>
+            
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="radio-group"> Wybór 1
+                </label>
+                <label>
+                    <input type="radio" name="radio-group" checked> Wybór 2 (zaznaczony)
+                </label>
+                <label>
+                    <input type="radio" name="radio-group" disabled> Wybór 3 (wyłączony)
+                </label>
+            </div>
+        </div>
+        
+        <div class="form-section basic-form">
+            <h2>Elementy postępu</h2>
+            
+            <label for="progress-bar">Pasek postępu (50%):</label>
+            <progress id="progress-bar" max="100" value="50"></progress>
+            
+            <label for="meter-element">Miernik (5/10):</label>
+            <meter id="meter-element" min="0" max="10" value="5" low="3" high="7" optimum="8"></meter>
+        </div>
+        
+        <div class="note">
+            <p><strong>Uwaga:</strong> Powyższe elementy formularzy wykorzystują domyślne style przeglądarek, co sprawia, że wyglądają zupełnie inaczej w Chrome i Firefox. W praktyce, te różnice powinny być zniwelowane przez zastosowanie własnych stylów CSS.</p>
+        </div>
+    </div>
+</body>
+</html>
