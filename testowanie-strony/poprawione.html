@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rozwiązanie - formularze kompatybilne między przeglądarkami</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        
+        h2 {
+            margin-top: 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        /* ROZWIĄZANIE: Ujednolicone style dla wszystkich pól formularza */
+        .fixed-form input[type="text"],
+        .fixed-form input[type="password"],
+        .fixed-form select,
+        .fixed-form textarea,
+        .fixed-form input[type="number"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        /* ROZWIĄZANIE: Niestandardowy selektor koloru */
+        .fixed-form .custom-color {
+            position: relative;
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .fixed-form .custom-color input[type="color"] {
+            width: 100%;
+            height: 40px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+        }
+        
+        /* ROZWIĄZANIE: Niestandardowy input file */
+        .fixed-form .custom-file {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .fixed-form .custom-file input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .fixed-form .file-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .fixed-form .file-name {
+            margin-left: 10px;
+            font-style: italic;
+        }
+        
+        /* ROZWIĄZANIE: Niestandardowy range slider */
+        .fixed-form .custom-range {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .fixed-form input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+        }
+        
+        .fixed-form input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+        }
+        
+        .fixed-form input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+            border: none;
+        }
+        
+        /* ROZWIĄZANIE: Niestandardowe checkboxy */
+        .fixed-form .custom-checkbox {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .fixed-form .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            height: 0;
+            width: 0;
+        }
+        
+        .fixed-form .checkmark {
+            position: relative;
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            background-color: #eee;
+            border-radius: 4px;
+            margin-right: 8px;
+            transition: all 0.2s;
+        }
+        
+        .fixed-form .custom-checkbox:hover .checkmark {
+            background-color: #ccc;
+        }
+        
+        .fixed-form .custom-checkbox input:checked ~ .checkmark {
+            background-color: #3498db;
+        }
+        
+        .fixed-form .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .fixed-form .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        /* ROZWIĄZANIE: Niestandardowe radio buttony */
+        .fixed-form .custom-radio .checkmark {
+            border-radius: 50%;
+        }
+        
+        .fixed-form .custom-radio .checkmark:after {
+            left: 7px;
+            top: 7px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+            transform: none;
+        }
+        
+        /* ROZWIĄZANIE: Niestandardowy progress bar */
+        .fixed-form .custom-progress {
+            width: 100%;
+            height: 20px;
+            background-color: #eee;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .fixed-form .progress-bar {
+            height: 100%;
+            width: 50%; /* zmień dla innej wartości */
+            background-color: #3498db;
+            border-radius: 10px;
+        }
+        
+        /* ROZWIĄZANIE: Niestandardowy meter */
+        .fixed-form .custom-meter {
+            width: 100%;
+            height: 20px;
+            background-color: #eee;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .fixed-form .meter-bar {
+            height: 100%;
+            width: 50%; /* zmień dla innej wartości */
+            background-color: #2ecc71;
+            border-radius: 10px;
+        }
+        
+        .note {
+            background-color: #e7f5ff;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rozwiązanie problemu kompatybilności formularzy</h1>
+        <p>Poniższe elementy formularzy zostały ujednolicone, aby wyglądały tak samo w Chrome i Firefox.</p>
+        
+        <div class="form-section fixed-form">
+            <h2>Ujednolicone podstawowe pola</h2>
+            
+            <label for="text-input-fixed">Pole tekstowe:</label>
+            <input type="text" id="text-input-fixed" placeholder="Wpisz tekst...">
+            
+            <label for="password-input-fixed">Hasło:</label>
+            <input type="password" id="password-input-fixed" placeholder="Wpisz hasło...">
+            
+            <label for="select-input-fixed">Lista rozwijana:</label>
+            <select id="select-input-fixed">
+                <option value="" disabled selected>Wybierz opcję...</option>
+                <option value="1">Opcja 1</option>
+                <option value="2">Opcja 2</option>
+                <option value="3">Opcja 3 z bardzo długą nazwą</option>
+            </select>
+            
+            <label for="textarea-input-fixed">Pole wieloliniowe:</label>
+            <textarea id="textarea-input-fixed" rows="4" placeholder="Wpisz dłuższy tekst..."></textarea>
+        </div>
+        
+        <div class="form-section fixed-form">
+            <h2>Ujednolicone specjalistyczne pola</h2>
+            
+            <label>Wybór koloru:</label>
+            <div class="custom-color">
+                <input type="color" id="color-input-fixed" value="#3498db">
+            </div>
+            
+            <label>Przesyłanie pliku:</label>
+            <div class="custom-file">
+                <span class="file-button">Wybierz plik</span>
+                <span class="file-name">Nie wybrano pliku</span>
+                <input type="file" id="file-input-fixed">
+            </div>
+            
+            <label>Suwak:</label>
+            <div class="custom-range">
+                <input type="range" id="range-input-fixed" min="0" max="100" value="50">
+            </div>
+        </div>
+        
+        <div class="form-section fixed-form">
+            <h2>Ujednolicone checkboxy i radio</h2>
+            
+            <div>
+                <label>Checkboxy:</label>
+                <label class="custom-checkbox">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                    Opcja 1
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" checked>
+                    <span class="checkmark"></span>
+                    Opcja 2 (zaznaczona)
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" disabled>
+                    <span class="checkmark"></span>
+                    Opcja 3 (wyłączona)
+                </label>
+            </div>
+            
+            <div style="margin-top: 15px;">
+                <label>Radio buttony:</label>
+                <label class="custom-checkbox custom-radio">
+                    <input type="radio" name="radio-group-fixed">
+                    <span class="checkmark"></span>
+                    Wybór 1
+                </label>
+                <label class="custom-checkbox custom-radio">
+                    <input type="radio" name="radio-group-fixed" checked>
+                    <span class="checkmark"></span>
+                    Wybór 2 (zaznaczony)
+                </label>
+                <label class="custom-checkbox custom-radio">
+                    <input type="radio" name="radio-group-fixed" disabled>
+                    <span class="checkmark"></span>
+                    Wybór 3 (wyłączony)
+                </label>
+            </div>
+        </div>
+        
+        <div class="form-section fixed-form">
+            <h2>Ujednolicone elementy postępu</h2>
+            
+            <label>Pasek postępu (50%):</label>
+            <div class="custom-progress">
+                <div class="progress-bar"></div>
+            </div>
+            
+            <label>Miernik (5/10):</label>
+            <div class="custom-meter">
+                <div class="meter-bar"></div>
+            </div>
+        </div>
+        
+        <div class="note">
+            <p><strong>Rozwiązanie:</strong> Powyższe elementy formularzy mają zastosowane własne style CSS, co sprawia, że wyglądają identycznie w Chrome i Firefox. W wielu przypadkach zrezygnowano z domyślnych elementów przeglądarki i zastąpiono je własnymi, niestandardowymi wersjami.</p>
+        </div>
+        
+        <script>
+            // Skrypt do obsługi wyświetlania nazwy pliku
+            document.getElementById('file-input-fixed').addEventListener('change', function(e) {
+                const fileName = e.target.files[0] ? e.target.files[0].name : 'Nie wybrano pliku';
+                document.querySelector('.file-name').textContent = fileName;
+            });
+        </script>
+    </div>
+</body>
+</html>
